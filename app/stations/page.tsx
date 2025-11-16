@@ -8,6 +8,11 @@ export default function StationsPage() {
     return match ? match[1] : nearestStation;
   };
 
+  // Helper function to convert station name to URL-friendly ID
+  const stationNameToId = (stationName: string): string => {
+    return stationName.replace(/駅$/, "");
+  };
+
   // Group studios by station
   const studiosByStation = pilatesStudios.reduce(
     (acc, studio) => {
@@ -41,42 +46,26 @@ export default function StationsPage() {
             最寄駅別スタジオ一覧
           </h1>
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            各駅ごとに最大5件のスタジオを表示しています
+            駅を選択してスタジオを表示
           </p>
         </div>
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {sortedStations.map((stationName) => (
-            <section key={stationName}>
-              <h2 className="mb-4 text-2xl font-semibold text-zinc-900 dark:text-white">
+            <Link
+              key={stationName}
+              href={`/station/${stationNameToId(stationName)}`}
+              className="block rounded-lg bg-white p-6 shadow-md transition-shadow hover:shadow-lg dark:bg-zinc-800"
+            >
+              <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">
                 {stationName}
               </h2>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {studiosByStation[stationName].map((studio) => (
-                  <Link
-                    key={studio.id}
-                    href={`/studio/${studio.id}`}
-                    className="block rounded-lg bg-white p-6 shadow-md transition-shadow hover:shadow-lg dark:bg-zinc-800"
-                  >
-                    <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">
-                      {studio.name}
-                    </h3>
-                    <div className="mt-3 space-y-1">
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                        <span className="font-medium">最寄駅:</span>{" "}
-                        {studio.nearestStation}
-                      </p>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                        <span className="font-medium">住所:</span>{" "}
-                        {studio.address}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                {studiosByStation[stationName].length}件のスタジオ
+              </p>
+            </Link>
           ))}
         </div>
       </main>
