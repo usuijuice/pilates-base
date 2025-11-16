@@ -3,8 +3,8 @@ import { pilatesStudios } from "@/app/data/studios";
 
 export default function SasazukaStationPage() {
   // Filter studios for Sasazuka area
-  const sasazukaStudios = pilatesStudios.filter((studio) =>
-    studio.name.includes("笹塚"),
+  const sasazukaStudios = pilatesStudios.filter(
+    (studio) => studio.name.includes("笹塚") || studio.address.includes("笹塚"),
   );
 
   const areaName = "笹塚";
