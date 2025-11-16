@@ -12,6 +12,14 @@ export default function Home() {
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
             全国のピラティススタジオ情報を検索できます
           </p>
+          <div className="mt-4">
+            <Link
+              href="/stations"
+              className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            >
+              最寄駅別で探す
+            </Link>
+          </div>
         </div>
       </header>
 
