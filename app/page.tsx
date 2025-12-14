@@ -3,13 +3,13 @@ import { pilatesStudios } from "./data/studios";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
-      <header className="sticky top-0 z-10 bg-white shadow-sm dark:bg-zinc-800">
+    <div className="min-h-screen bg-[#faf8f5]">
+      <header className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
+          <h1 className="text-3xl font-bold text-[#d4a5a5]">
             全国のピラティス教室
           </h1>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-sm text-[#666]">
             全国のピラティススタジオ情報を検索できます
           </p>
         </div>
@@ -21,19 +21,21 @@ export default function Home() {
             <Link
               key={studio.id}
               href={`/studio/${studio.id}`}
-              className="block rounded-lg bg-white p-6 shadow-md transition-shadow hover:shadow-lg dark:bg-zinc-800"
+              className="block rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">
+              <h2 className="text-xl font-semibold text-[#c09090]">
                 {studio.name}
               </h2>
               <div className="mt-4 space-y-2">
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  <span className="font-medium">住所:</span> {studio.address}
+                <p className="text-sm text-[#555]">
+                  <span className="font-medium text-[#8b6f6f]">住所:</span>{" "}
+                  {studio.address}
                 </p>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  <span className="font-medium">電話:</span> {studio.phone}
+                <p className="text-sm text-[#555]">
+                  <span className="font-medium text-[#8b6f6f]">電話:</span>{" "}
+                  {studio.phone}
                 </p>
-                <p className="mt-3 text-sm text-zinc-700 dark:text-zinc-300">
+                <p className="mt-3 text-sm text-[#666] leading-relaxed">
                   {studio.description}
                 </p>
               </div>
