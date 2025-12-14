@@ -3,13 +3,13 @@ import { pilatesStudios } from "./data/studios";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="min-h-screen bg-stone-50">
       <header className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-[#d4a5a5]">
+          <h1 className="text-3xl font-bold text-rose-300">
             全国のピラティス教室
           </h1>
-          <p className="mt-2 text-sm text-[#666]">
+          <p className="mt-2 text-sm text-gray-600">
             全国のピラティススタジオ情報を検索できます
           </p>
         </div>
@@ -23,19 +23,19 @@ export default function Home() {
               href={`/studio/${studio.id}`}
               className="block rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <h2 className="text-xl font-semibold text-[#c09090]">
+              <h2 className="text-xl font-semibold text-rose-400">
                 {studio.name}
               </h2>
               <div className="mt-4 space-y-2">
-                <p className="text-sm text-[#555]">
-                  <span className="font-medium text-[#8b6f6f]">住所:</span>{" "}
+                <p className="text-sm text-gray-700">
+                  <span className="font-medium text-stone-600">住所:</span>{" "}
                   {studio.address}
                 </p>
-                <p className="text-sm text-[#555]">
-                  <span className="font-medium text-[#8b6f6f]">電話:</span>{" "}
+                <p className="text-sm text-gray-700">
+                  <span className="font-medium text-stone-600">電話:</span>{" "}
                   {studio.phone}
                 </p>
-                <p className="mt-3 text-sm text-[#666] leading-relaxed">
+                <p className="mt-3 text-sm text-gray-600 leading-relaxed">
                   {studio.description}
                 </p>
               </div>
