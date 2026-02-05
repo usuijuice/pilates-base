@@ -31,6 +31,18 @@ export default function SasazukaStationPage() {
           boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
         }}
       >
+        <h1
+          style={{
+            color: "#d4a5a5",
+            fontSize: "32px",
+            marginTop: "50px",
+            marginBottom: "25px",
+            paddingBottom: "12px",
+            borderBottom: "2px solid #f0e4d7",
+          }}
+        >
+          {areaName}のピラティススタジオおすすめランキング
+        </h1>
         <div
           style={{
             fontSize: "16px",
