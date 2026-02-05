@@ -129,298 +129,306 @@ export default function SasazukaStationPage() {
             >
               {index + 1}位：{studio.name}
             </h3>
-            <table
+            <div
               style={{
-                width: "100%",
-                borderCollapse: "collapse",
+                overflowX: "auto",
                 margin: "25px 0",
-                backgroundColor: "#fff",
+                WebkitOverflowScrolling: "touch",
               }}
             >
-              <tbody>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    店舗名
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.name}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    料金プラン
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.pricingPlan.split(" / ").map((plan) => (
-                      <div key={plan}>{plan}</div>
-                    ))}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    体験レッスン有無
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.hasTrialLesson ? "あり" : "なし"}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    通い放題有無
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.hasUnlimitedPlan ? "あり" : "なし"}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    マシン有無
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.hasMachine ? "あり" : "なし"}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    住所・エリア
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.address}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    最寄駅
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.nearestStation}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    営業時間
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    {studio.businessHours}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    特徴
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    <ul
+              <table
+                style={{
+                  width: "100%",
+                  minWidth: "500px",
+                  borderCollapse: "collapse",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <tbody>
+                  <tr>
+                    <th
                       style={{
-                        listStyleType: "none",
-                        paddingLeft: 0,
-                        margin: "20px 0",
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
                       }}
                     >
-                      {studio.features.map((feature) => (
-                        <li
-                          key={feature}
-                          style={{
-                            padding: "10px 0 10px 25px",
-                            position: "relative",
-                            color: "#666",
-                          }}
-                        >
-                          <span
+                      店舗名
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      料金プラン
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.pricingPlan.split(" / ").map((plan) => (
+                        <div key={plan}>{plan}</div>
+                      ))}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      体験レッスン有無
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.hasTrialLesson ? "あり" : "なし"}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      通い放題有無
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.hasUnlimitedPlan ? "あり" : "なし"}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      マシン有無
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.hasMachine ? "あり" : "なし"}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      住所・エリア
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.address}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      最寄駅
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.nearestStation}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      営業時間
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      {studio.businessHours}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      style={{
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
+                      }}
+                    >
+                      特徴
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      <ul
+                        style={{
+                          listStyleType: "none",
+                          paddingLeft: 0,
+                          margin: "20px 0",
+                        }}
+                      >
+                        {studio.features.map((feature) => (
+                          <li
+                            key={feature}
                             style={{
-                              position: "absolute",
-                              left: 0,
-                              color: "#d4a5a5",
-                              fontWeight: "bold",
+                              padding: "10px 0 10px 25px",
+                              position: "relative",
+                              color: "#666",
                             }}
                           >
-                            ✓
-                          </span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "#f5ebe0",
-                      color: "#8b6f6f",
-                      padding: "14px",
-                      textAlign: "left",
-                      border: "1px solid #e8dcd0",
-                      width: "40%",
-                      fontWeight: 600,
-                    }}
-                  >
-                    公式サイトURL
-                  </th>
-                  <td
-                    style={{
-                      padding: "14px",
-                      border: "1px solid #e8dcd0",
-                      color: "#555",
-                    }}
-                  >
-                    <a
-                      href={studio.officialWebsite}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                            <span
+                              style={{
+                                position: "absolute",
+                                left: 0,
+                                color: "#d4a5a5",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              ✓
+                            </span>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
                       style={{
-                        color: "#d4a5a5",
-                        textDecoration: "none",
+                        backgroundColor: "#f5ebe0",
+                        color: "#8b6f6f",
+                        padding: "14px",
+                        textAlign: "left",
+                        border: "1px solid #e8dcd0",
+                        width: "40%",
+                        fontWeight: 600,
                       }}
                     >
-                      {studio.officialWebsite}
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      公式サイトURL
+                    </th>
+                    <td
+                      style={{
+                        padding: "14px",
+                        border: "1px solid #e8dcd0",
+                        color: "#555",
+                      }}
+                    >
+                      <a
+                        href={studio.officialWebsite}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: "#d4a5a5",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {studio.officialWebsite}
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div style={{ textAlign: "center", margin: "30px 0" }}>
               <a
                 href={studio.officialWebsite}
