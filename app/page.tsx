@@ -1,8 +1,13 @@
 import Link from "next/link";
-import { getAllStudios } from "@/lib/studios";
+import { AreaNavigator } from "@/components/area-navigator";
+import { getAllAreas, getAllCities, getAllStudios } from "@/lib/studios";
 
 export default async function Home() {
-  const pilatesStudios = await getAllStudios();
+  const [pilatesStudios, cities, areas] = await Promise.all([
+    getAllStudios(),
+    getAllCities(),
+    getAllAreas(),
+  ]);
   return (
     <div className="min-h-screen bg-stone-50">
       <header className="sticky top-0 z-10 bg-white shadow-sm">
@@ -17,7 +22,11 @@ export default async function Home() {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-6">
+        {/* エリアナビゲーション */}
+        <AreaNavigator cities={cities} areas={areas} />
+
+        {/* スタジオ一覧 */}
+        <div className="mt-8 flex flex-col gap-6">
           {pilatesStudios.map((studio) => (
             <Link
               key={studio.id}

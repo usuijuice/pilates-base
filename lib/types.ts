@@ -41,6 +41,22 @@ export interface DbCity {
   updated_at: string;
 }
 
+/** アプリケーション側で使用する City 型 */
+export interface City {
+  id: number;
+  slug: string;
+  name: string;
+}
+
+/** アプリケーション側で使用する Area 型 */
+export interface Area {
+  id: number;
+  slug: string;
+  name: string;
+  cityId: number;
+  citySlug: string;
+}
+
 /** アプリケーション側で使用する Studio 型（camelCase） */
 export interface Studio {
   id: number;
