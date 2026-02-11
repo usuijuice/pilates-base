@@ -27,9 +27,9 @@ export const pilatesStudios: Studio[] = [
     name: "クラブピラティス 笹塚店",
     address:
       "〒151-0073 東京都渋谷区笹塚1-48-14 笹塚ショッピングモールTwenty One 2階",
-    area: "渋谷区",
+    area: "笹塚",
     nearestStation: "京王線笹塚駅より徒歩1分",
-    phone: "",
+    phone: "03-4400-0944",
     description:
       "リフォーマー等のマシンピラティス専門スタジオ。体験当日入会で入会金無料。",
     pricingPlan:
@@ -53,7 +53,7 @@ export const pilatesStudios: Studio[] = [
     id: 2,
     name: "ピラティスミラー 笹塚",
     address: "〒151-0073 東京都渋谷区笹塚1-59-6 メティス笹塚ビル1F",
-    area: "渋谷区",
+    area: "笹塚",
     nearestStation: "京王線・京王新線 笹塚駅",
     phone: "",
     description:
@@ -80,9 +80,9 @@ export const pilatesStudios: Studio[] = [
     id: 3,
     name: "PILATES STUDIO Mind & Body",
     address: "〒151-0073 東京都渋谷区笹塚2-7-10 浜中ビル7F",
-    area: "渋谷区",
+    area: "笹塚",
     nearestStation: "京王線/京王新線 笹塚駅から徒歩3分",
-    phone: "",
+    phone: "03-6300-0752",
     description:
       "マシンピラティス対応のスタジオ。プライベート、セミプライベート、グループレッスンを提供。",
     pricingPlan:
@@ -106,7 +106,7 @@ export const pilatesStudios: Studio[] = [
     id: 4,
     name: "パーソナルマシンピラティスYUZU 笹塚店",
     address: "〒151-0073 東京都渋谷区笹塚1丁目56-6 90C（9階）",
-    area: "渋谷区",
+    area: "笹塚",
     nearestStation: "笹塚駅徒歩3分",
     phone: "",
     description:
@@ -133,7 +133,7 @@ export const pilatesStudios: Studio[] = [
     name: "パーソナルマシンピラティス＆ジム ELEMENT 笹塚A1店",
     address:
       "〒151-0073 東京都渋谷区笹塚1-50-1 Daiwa笹塚タワー スポーツクラブA-1笹塚",
-    area: "渋谷区",
+    area: "笹塚",
     nearestStation: "笹塚駅から徒歩6分",
     phone: "",
     description:
