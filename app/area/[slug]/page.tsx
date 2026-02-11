@@ -1,13 +1,30 @@
 import Link from "next/link";
-import { pilatesStudios } from "@/app/data/studios";
+import { notFound } from "next/navigation";
+import {
+  getAllAreaSlugs,
+  getAreaBySlug,
+  getStudiosByAreaSlug,
+} from "@/lib/studios";
 
-export default function SasazukaStationPage() {
-  // Filter studios for Sasazuka area
-  const sasazukaStudios = pilatesStudios.filter(
-    (studio) => studio.name.includes("笹塚") || studio.address.includes("笹塚"),
-  );
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
 
-  const areaName = "笹塚";
+export async function generateStaticParams() {
+  const slugs = await getAllAreaSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export default async function AreaPage({ params }: PageProps) {
+  const { slug } = await params;
+  const area = await getAreaBySlug(slug);
+
+  if (!area) {
+    notFound();
+  }
+
+  const areaStudios = await getStudiosByAreaSlug(slug);
+  const areaName = area.name;
 
   return (
     <div
@@ -88,7 +105,7 @@ export default function SasazukaStationPage() {
             borderBottom: "2px solid #f0e4d7",
           }}
         >
-          {areaName}のピラティスジムおすすめ{sasazukaStudios.length}選
+          {areaName}のピラティスジムおすすめ{areaStudios.length}選
         </h2>
         <p>
           {areaName}
@@ -109,7 +126,7 @@ export default function SasazukaStationPage() {
           体験レッスンの有無や通い放題プランの設定なども含め、自分のライフスタイルに合ったスタジオ選びの参考にしてください。
         </p>
 
-        {sasazukaStudios.map((studio, index) => (
+        {areaStudios.map((studio, index) => (
           <div
             key={studio.id}
             style={{

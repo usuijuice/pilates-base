@@ -1,20 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pilatesStudios } from "@/app/data/studios";
+import { getAllStudios, getStudioById } from "@/lib/studios";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
 export async function generateStaticParams() {
-  return pilatesStudios.map((studio) => ({
+  const studios = await getAllStudios();
+  return studios.map((studio) => ({
     id: studio.id.toString(),
   }));
 }
 
 export default async function StudioPage({ params }: PageProps) {
   const { id } = await params;
-  const studio = pilatesStudios.find((s) => s.id === Number.parseInt(id, 10));
+  const studio = await getStudioById(Number.parseInt(id, 10));
 
   if (!studio) {
     notFound();

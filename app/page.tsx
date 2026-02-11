@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { pilatesStudios } from "./data/studios";
+import { getAllStudios } from "@/lib/studios";
 
-export default function Home() {
+export default async function Home() {
+  const pilatesStudios = await getAllStudios();
   return (
     <div className="min-h-screen bg-stone-50">
       <header className="sticky top-0 z-10 bg-white shadow-sm">
