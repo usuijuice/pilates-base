@@ -27,13 +27,13 @@ export interface DbArea {
   id: number;
   slug: string;
   name: string;
-  ward_id: number;
+  city_id: number;
   created_at: string;
   updated_at: string;
 }
 
-/** Supabase wards テーブルの行型 */
-export interface DbWard {
+/** Supabase cities テーブルの行型 */
+export interface DbCity {
   id: number;
   slug: string;
   name: string;

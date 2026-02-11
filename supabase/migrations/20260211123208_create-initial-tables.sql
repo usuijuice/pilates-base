@@ -1,5 +1,5 @@
--- 区テーブル
-CREATE TABLE wards (
+-- 市区テーブル
+CREATE TABLE cities (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   slug TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
@@ -7,16 +7,16 @@ CREATE TABLE wards (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-COMMENT ON TABLE wards IS '区情報';
-COMMENT ON COLUMN wards.slug IS 'URLパス用スラッグ（例: shibuya）';
-COMMENT ON COLUMN wards.name IS '区表示名（例: 渋谷区）';
+COMMENT ON TABLE cities IS '市区情報';
+COMMENT ON COLUMN cities.slug IS 'URLパス用スラッグ（例: shibuya）';
+COMMENT ON COLUMN cities.name IS '市区表示名（例: 渋谷区）';
 
 -- エリアテーブル
 CREATE TABLE areas (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   slug TEXT NOT NULL UNIQUE,
   name TEXT NOT NULL,
-  ward_id BIGINT NOT NULL REFERENCES wards(id) ON DELETE RESTRICT,
+  city_id BIGINT NOT NULL REFERENCES cities(id) ON DELETE RESTRICT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -25,7 +25,7 @@ COMMENT ON TABLE areas IS 'エリア情報（駅・地域単位）';
 COMMENT ON COLUMN areas.slug IS 'URLパス用スラッグ（例: sasazuka）';
 COMMENT ON COLUMN areas.name IS 'エリア表示名（例: 笹塚）';
 
-CREATE INDEX idx_areas_ward_id ON areas(ward_id);
+CREATE INDEX idx_areas_city_id ON areas(city_id);
 
 -- スタジオテーブル
 CREATE TABLE studios (

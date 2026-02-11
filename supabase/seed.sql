@@ -1,12 +1,47 @@
--- シードデータ: wards, areas, studios
+-- シードデータ: cities, areas, studios
 
--- 区データ
-INSERT INTO wards (slug, name) VALUES
-  ('shibuya', '渋谷区');
+-- 市区データ
+INSERT INTO cities (slug, name) VALUES
+  ('chiyoda', '千代田区'),
+  ('chuo', '中央区'),
+  ('shinjuku', '新宿区'),
+  ('bunkyo', '文京区'),
+  ('taito', '台東区'),
+  ('sumida', '墨田区'),
+  ('koto', '江東区'),
+  ('shinagawa', '品川区'),
+  ('meguro', '目黒区'),
+  ('ota', '大田区'),
+  ('setagaya', '世田谷区'),
+  ('shibuya', '渋谷区'),
+  ('nakano', '中野区'),
+  ('suginami', '杉並区'),
+  ('toshima', '豊島区'),
+  ('kita', '北区'),
+  ('arakawa', '荒川区'),
+  ('itabashi', '板橋区'),
+  ('nerima', '練馬区'),
+  ('adachi', '足立区'),
+  ('katsushika', '葛飾区'),
+  ('edogawa', '江戸川区'),
+  ('hachioji', '八王子市'),
+  ('tachikawa', '立川市'),
+  ('musashino', '武蔵野市'),
+  ('mitaka', '三鷹市'),
+  ('akishima', '昭島市'),
+  ('machida', '町田市'),
+  ('koganei', '小金井市'),
+  ('kodaira', '小平市'),
+  ('kokubunji', '国分寺市'),
+  ('komae', '狛江市'),
+  ('kiyose', '清瀬市'),
+  ('higashikurume', '東久留米市'),
+  ('hamura', '羽村市'),
+  ('nishitokyo', '西東京市');
 
 -- エリアデータ
-INSERT INTO areas (slug, name, ward_id) VALUES
-  ('sasazuka', '笹塚', (SELECT id FROM wards WHERE slug = 'shibuya'));
+INSERT INTO areas (slug, name, city_id) VALUES
+  ('sasazuka', '笹塚', (SELECT id FROM cities WHERE slug = 'shibuya'));
 
 -- スタジオデータ
 INSERT INTO studios (
