@@ -1,8 +1,11 @@
+import { cacheLife } from "next/cache";
 import type { Tables } from "@/lib/database.types";
 import { supabase } from "@/lib/supabase";
 
 /** 全スタジオを取得（エリア名を結合） */
 export async function getAllStudios() {
+  "use cache";
+  cacheLife("max");
   const { data, error } = await supabase
     .from("studios")
     .select("*, areas(name)")
@@ -21,6 +24,8 @@ export async function getAllStudios() {
 
 /** IDでスタジオを1件取得 */
 export async function getStudioById(id: number) {
+  "use cache";
+  cacheLife("max");
   const { data, error } = await supabase
     .from("studios")
     .select("*, areas(name)")
@@ -41,6 +46,8 @@ export async function getStudioById(id: number) {
 
 /** エリアのスラッグでスタジオ一覧を取得 */
 export async function getStudiosByAreaSlug(slug: string) {
+  "use cache";
+  cacheLife("max");
   // まずエリアを取得
   const area = await getAreaBySlug(slug);
   if (!area) return [];
@@ -62,6 +69,8 @@ export async function getStudiosByAreaSlug(slug: string) {
 export async function getAreaBySlug(
   slug: string,
 ): Promise<Tables<"areas"> | null> {
+  "use cache";
+  cacheLife("max");
   const { data, error } = await supabase
     .from("areas")
     .select("*")
@@ -78,6 +87,8 @@ export async function getAreaBySlug(
 
 /** 全エリアのスラッグ一覧を取得（generateStaticParams 用） */
 export async function getAllAreaSlugs(): Promise<string[]> {
+  "use cache";
+  cacheLife("max");
   const { data, error } = await supabase.from("areas").select("slug");
 
   if (error) {
@@ -89,6 +100,8 @@ export async function getAllAreaSlugs(): Promise<string[]> {
 
 /** スタジオが存在する市区のみ取得 */
 export async function getAllCities(): Promise<Tables<"cities">[]> {
+  "use cache";
+  cacheLife("max");
   // スタジオが存在するエリアのarea_idを取得
   const { data: studioData, error: studioError } = await supabase
     .from("studios")
@@ -130,6 +143,8 @@ export async function getAllCities(): Promise<Tables<"cities">[]> {
 
 /** スタジオが存在するエリアのみ取得（市区スラッグ付き） */
 export async function getAllAreas(): Promise<Tables<"areas">[]> {
+  "use cache";
+  cacheLife("max");
   // スタジオが存在するarea_idを取得
   const { data: studioData, error: studioError } = await supabase
     .from("studios")
@@ -161,6 +176,8 @@ export async function getAreaBySlugs(
   citySlug: string,
   areaSlug: string,
 ): Promise<(Tables<"areas"> & { cityName: string }) | null> {
+  "use cache";
+  cacheLife("max");
   // まず市区をスラッグで取得
   const { data: cityData, error: cityError } = await supabase
     .from("cities")
@@ -197,6 +214,8 @@ export async function getAreaBySlugs(
 export async function getAllCityAreaSlugs(): Promise<
   { citySlug: string; areaSlug: string }[]
 > {
+  "use cache";
+  cacheLife("max");
   const { data, error } = await supabase
     .from("areas")
     .select("slug, cities(slug)");
