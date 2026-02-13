@@ -9,7 +9,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "全国のピラティス教室検索 | Pilates Studio Directory",
+  title: "全国のピラティス教室 | Pilates Base",
   description: "全国のピラティス教室・スタジオ情報を検索できるサイトです。",
 };
 
