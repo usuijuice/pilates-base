@@ -69,7 +69,7 @@ export default async function StudioPage({ params }: PageProps) {
             </h2>
             <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-rose-200">
               <p className="text-gray-700 leading-relaxed">
-                {studio.pricingPlan}
+                {studio.pricing_plan}
               </p>
             </div>
           </section>
@@ -82,57 +82,57 @@ export default async function StudioPage({ params }: PageProps) {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3 bg-stone-50 p-6 rounded-lg">
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.hasTrialLesson ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.has_trial_lesson ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.hasTrialLesson ? "✓" : "✗"}
+                  {studio.has_trial_lesson ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">体験レッスン</span>
               </div>
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.hasUnlimitedPlan ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.has_unlimited_plan ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.hasUnlimitedPlan ? "✓" : "✗"}
+                  {studio.has_unlimited_plan ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">通い放題</span>
               </div>
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.hasMachine ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.has_machine ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.hasMachine ? "✓" : "✗"}
+                  {studio.has_machine ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">マシン</span>
               </div>
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.hasOnlineSupport ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.has_online_support ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.hasOnlineSupport ? "✓" : "✗"}
+                  {studio.has_online_support ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">オンライン対応</span>
               </div>
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.hasLocker ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.has_locker ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.hasLocker ? "✓" : "✗"}
+                  {studio.has_locker ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">ロッカー</span>
               </div>
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.hasShower ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.has_shower ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.hasShower ? "✓" : "✗"}
+                  {studio.has_shower ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">シャワー</span>
               </div>
               <div className="flex items-center">
                 <span
-                  className={`mr-2 ${studio.allowsMale ? "text-rose-300" : "text-gray-300"}`}
+                  className={`mr-2 ${studio.allows_male ? "text-rose-300" : "text-gray-300"}`}
                 >
-                  {studio.allowsMale ? "✓" : "✗"}
+                  {studio.allows_male ? "✓" : "✗"}
                 </span>
                 <span className="text-sm text-gray-700">男性利用可</span>
               </div>
@@ -151,7 +151,7 @@ export default async function StudioPage({ params }: PageProps) {
               </div>
               <div>
                 <p className="text-sm font-medium text-stone-600">最寄駅</p>
-                <p className="text-gray-700 mt-1">{studio.nearestStation}</p>
+                <p className="text-gray-700 mt-1">{studio.nearest_station}</p>
               </div>
               <div>
                 <p className="text-sm font-medium text-stone-600">エリア</p>
@@ -166,7 +166,7 @@ export default async function StudioPage({ params }: PageProps) {
               営業時間
             </h2>
             <div className="bg-stone-50 p-6 rounded-lg">
-              <p className="text-gray-700">{studio.businessHours}</p>
+              <p className="text-gray-700">{studio.business_hours}</p>
             </div>
           </section>
 
@@ -183,12 +183,12 @@ export default async function StudioPage({ params }: PageProps) {
               <div>
                 <p className="text-sm font-medium text-stone-600">公式サイト</p>
                 <a
-                  href={studio.officialWebsite}
+                  href={studio.official_website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-rose-300 hover:text-rose-400 transition-colors mt-1 inline-block"
                 >
-                  {studio.officialWebsite}
+                  {studio.official_website}
                 </a>
               </div>
             </div>

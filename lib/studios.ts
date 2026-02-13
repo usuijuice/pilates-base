@@ -1,10 +1,8 @@
 import type { Tables } from "@/lib/database.types";
 import { supabase } from "@/lib/supabase";
-import type { DbArea, Studio } from "@/lib/types";
-import { toStudio } from "@/lib/types";
 
 /** 全スタジオを取得（エリア名を結合） */
-export async function getAllStudios(): Promise<Studio[]> {
+export async function getAllStudios() {
   const { data, error } = await supabase
     .from("studios")
     .select("*, areas(name)")
@@ -17,12 +15,12 @@ export async function getAllStudios(): Promise<Studio[]> {
   return (data ?? []).map((row) => {
     const areaName = row.areas.name;
     const { areas: _, ...studioRow } = row;
-    return toStudio(studioRow, areaName);
+    return { ...studioRow, area: areaName };
   });
 }
 
 /** IDでスタジオを1件取得 */
-export async function getStudioById(id: number): Promise<Studio | null> {
+export async function getStudioById(id: number) {
   const { data, error } = await supabase
     .from("studios")
     .select("*, areas(name)")
@@ -38,11 +36,11 @@ export async function getStudioById(id: number): Promise<Studio | null> {
 
   const areaName = data.areas.name;
   const { areas: _, ...studioRow } = data;
-  return toStudio(studioRow, areaName);
+  return { ...studioRow, area: areaName };
 }
 
 /** エリアのスラッグでスタジオ一覧を取得 */
-export async function getStudiosByAreaSlug(slug: string): Promise<Studio[]> {
+export async function getStudiosByAreaSlug(slug: string) {
   // まずエリアを取得
   const area = await getAreaBySlug(slug);
   if (!area) return [];
@@ -57,11 +55,13 @@ export async function getStudiosByAreaSlug(slug: string): Promise<Studio[]> {
     throw new Error(`スタジオの取得に失敗しました: ${error.message}`);
   }
 
-  return (data ?? []).map((row) => toStudio(row, area.name));
+  return (data ?? []).map((row) => ({ ...row, area: area.name }));
 }
 
 /** スラッグでエリア情報を取得 */
-export async function getAreaBySlug(slug: string): Promise<DbArea | null> {
+export async function getAreaBySlug(
+  slug: string,
+): Promise<Tables<"areas"> | null> {
   const { data, error } = await supabase
     .from("areas")
     .select("*")
@@ -160,7 +160,7 @@ export async function getAllAreas(): Promise<Tables<"areas">[]> {
 export async function getAreaBySlugs(
   citySlug: string,
   areaSlug: string,
-): Promise<(DbArea & { cityName: string }) | null> {
+): Promise<(Tables<"areas"> & { cityName: string }) | null> {
   // まず市区をスラッグで取得
   const { data: cityData, error: cityError } = await supabase
     .from("cities")

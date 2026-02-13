@@ -93,7 +93,7 @@ export default async function AreaPage({ params }: PageProps) {
                       料金プラン
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
-                      {studio.pricingPlan.split(" / ").map((plan) => (
+                      {studio.pricing_plan.split(" / ").map((plan) => (
                         <div key={plan}>{plan}</div>
                       ))}
                     </td>
@@ -103,7 +103,7 @@ export default async function AreaPage({ params }: PageProps) {
                       体験レッスン有無
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
-                      {studio.hasTrialLesson ? "あり" : "なし"}
+                      {studio.has_trial_lesson ? "あり" : "なし"}
                     </td>
                   </tr>
                   <tr>
@@ -111,7 +111,7 @@ export default async function AreaPage({ params }: PageProps) {
                       通い放題有無
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
-                      {studio.hasUnlimitedPlan ? "あり" : "なし"}
+                      {studio.has_unlimited_plan ? "あり" : "なし"}
                     </td>
                   </tr>
                   <tr>
@@ -119,7 +119,7 @@ export default async function AreaPage({ params }: PageProps) {
                       マシン有無
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
-                      {studio.hasMachine ? "あり" : "なし"}
+                      {studio.has_machine ? "あり" : "なし"}
                     </td>
                   </tr>
                   <tr>
@@ -135,7 +135,7 @@ export default async function AreaPage({ params }: PageProps) {
                       最寄駅
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
-                      {studio.nearestStation}
+                      {studio.nearest_station}
                     </td>
                   </tr>
                   <tr>
@@ -143,7 +143,7 @@ export default async function AreaPage({ params }: PageProps) {
                       営業時間
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
-                      {studio.businessHours}
+                      {studio.business_hours}
                     </td>
                   </tr>
                   <tr>
@@ -172,12 +172,12 @@ export default async function AreaPage({ params }: PageProps) {
                     </th>
                     <td className="p-3 border border-rose-200 text-gray-700">
                       <a
-                        href={studio.officialWebsite}
+                        href={studio.official_website}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-red-300 no-underline"
                       >
-                        {studio.officialWebsite}
+                        {studio.official_website}
                       </a>
                     </td>
                   </tr>
@@ -186,7 +186,7 @@ export default async function AreaPage({ params }: PageProps) {
             </div>
             <div className="text-center my-8">
               <a
-                href={studio.officialWebsite}
+                href={studio.official_website}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-12 py-4 bg-red-300 text-white no-underline rounded-full font-semibold hover:bg-red-400 transition-colors"
