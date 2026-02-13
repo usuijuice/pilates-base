@@ -28,7 +28,7 @@ export default async function AreaPage({ params }: PageProps) {
 
   return (
     <div className="leading-loose text-gray-500 bg-stone-50 m-0 p-5">
-      <div className="max-w-6xl mx-auto bg-white p-10 rounded-lg shadow-sm">
+      <div className="max-w-7xl mx-auto bg-white p-10 rounded-lg shadow-sm">
         <h1 className="text-rose-300 text-3xl mt-12 mb-6 pb-3 border-b-2 border-rose-100">
           {areaName}のピラティススタジオおすすめランキング
         </h1>
