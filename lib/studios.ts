@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import type { Area, City, DbArea, DbCity, DbStudio, Studio } from "@/lib/types";
+import type { Area, City, DbArea, Studio } from "@/lib/types";
 import { toStudio } from "@/lib/types";
 
 /** 全スタジオを取得（エリア名を結合） */
@@ -14,9 +14,9 @@ export async function getAllStudios(): Promise<Studio[]> {
   }
 
   return (data ?? []).map((row) => {
-    const areaName = (row.areas as unknown as { name: string })?.name ?? "";
+    const areaName = row.areas.name;
     const { areas: _, ...studioRow } = row;
-    return toStudio(studioRow as DbStudio, areaName);
+    return toStudio(studioRow, areaName);
   });
 }
 
@@ -35,9 +35,9 @@ export async function getStudioById(id: number): Promise<Studio | null> {
 
   if (!data) return null;
 
-  const areaName = (data.areas as unknown as { name: string })?.name ?? "";
+  const areaName = data.areas.name;
   const { areas: _, ...studioRow } = data;
-  return toStudio(studioRow as DbStudio, areaName);
+  return toStudio(studioRow, areaName);
 }
 
 /** エリアのスラッグでスタジオ一覧を取得 */
@@ -56,7 +56,7 @@ export async function getStudiosByAreaSlug(slug: string): Promise<Studio[]> {
     throw new Error(`スタジオの取得に失敗しました: ${error.message}`);
   }
 
-  return (data ?? []).map((row) => toStudio(row as DbStudio, area.name));
+  return (data ?? []).map((row) => toStudio(row, area.name));
 }
 
 /** スラッグでエリア情報を取得 */
@@ -72,7 +72,7 @@ export async function getAreaBySlug(slug: string): Promise<DbArea | null> {
     throw new Error(`エリアの取得に失敗しました: ${error.message}`);
   }
 
-  return data as DbArea | null;
+  return data ?? null;
 }
 
 /** 全エリアのスラッグ一覧を取得（generateStaticParams 用） */
@@ -125,7 +125,7 @@ export async function getAllCities(): Promise<City[]> {
   }
 
   return (data ?? []).map((row) => {
-    const r = row as DbCity;
+    const r = row;
     return { id: r.id, slug: r.slug, name: r.name };
   });
 }
@@ -156,9 +156,9 @@ export async function getAllAreas(): Promise<Area[]> {
   }
 
   return (data ?? []).map((row) => {
-    const citySlug = (row.cities as unknown as { slug: string })?.slug ?? "";
+    const citySlug = row.cities.slug;
     const { cities: _, ...areaRow } = row;
-    const r = areaRow as DbArea;
+    const r = areaRow;
     return {
       id: r.id,
       slug: r.slug,
@@ -187,7 +187,7 @@ export async function getAreaBySlugs(
   }
   if (!cityData) return null;
 
-  const city = cityData as DbCity;
+  const city = cityData;
 
   // そのcity_idに属するエリアをスラッグで取得
   const { data: areaData, error: areaError } = await supabase
@@ -203,7 +203,7 @@ export async function getAreaBySlugs(
   }
   if (!areaData) return null;
 
-  return { ...(areaData as DbArea), cityName: city.name };
+  return { ...areaData, cityName: city.name };
 }
 
 /** generateStaticParams 用: 全 citySlug/areaSlug の組み合わせを取得 */
@@ -219,7 +219,7 @@ export async function getAllCityAreaSlugs(): Promise<
   }
 
   return (data ?? []).map((row) => ({
-    citySlug: (row.cities as unknown as { slug: string })?.slug ?? "",
+    citySlug: row.cities.slug,
     areaSlug: row.slug,
   }));
 }
