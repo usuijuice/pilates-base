@@ -67,7 +67,7 @@ export default async function StudioPage({ params }: PageProps) {
             <h2 className="mb-4 text-xl font-semibold text-rose-400">
               料金プラン
             </h2>
-            <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-rose-200">
+            <div className="bg-rose-50 p-6 rounded-lg border-l-4 border-rose-200">
               <p className="text-gray-700 leading-relaxed">
                 {studio.pricing_plan}
               </p>
@@ -195,7 +195,7 @@ export default async function StudioPage({ params }: PageProps) {
           </section>
 
           {/* Back to list button */}
-          <div className="mt-8 border-t border-amber-200 pt-6">
+          <div className="mt-8 border-t border-rose-200 pt-6">
             <Link
               href="/"
               className="inline-block rounded-full bg-rose-300 px-12 py-4 text-white font-semibold transition-all hover:bg-rose-400 shadow-sm hover:shadow-md"
