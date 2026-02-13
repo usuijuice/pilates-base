@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import type { Area, City } from "@/lib/types";
+import type { Tables } from "@/lib/database.types";
 
 interface AreaNavigatorProps {
-  cities: City[];
-  areas: Area[];
+  cities: Tables<"cities">[];
+  areas: Tables<"areas">[];
 }
 
 export function AreaNavigator({ cities, areas }: AreaNavigatorProps) {
@@ -16,22 +16,22 @@ export function AreaNavigator({ cities, areas }: AreaNavigatorProps) {
   /** 選択された市区に属するエリアのみ */
   const filteredAreas = useMemo(() => {
     if (selectedCityId === null) return [];
-    return areas.filter((a) => a.cityId === selectedCityId);
+    return areas.filter((area) => area.city_id === selectedCityId);
   }, [areas, selectedCityId]);
 
   /** 選択中の市区のスラッグ */
   const selectedCitySlug = useMemo(() => {
     if (selectedCityId === null) return "";
-    return cities.find((c) => c.id === selectedCityId)?.slug ?? "";
+    return cities.find((city) => city.id === selectedCityId)?.slug ?? "";
   }, [cities, selectedCityId]);
 
-  function handleCityChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const value = e.target.value;
+  function handleCityChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const value = event.target.value;
     setSelectedCityId(value ? Number(value) : null);
   }
 
-  function handleAreaChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const areaSlug = e.target.value;
+  function handleAreaChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const areaSlug = event.target.value;
     if (areaSlug && selectedCitySlug) {
       router.push(`/studio/area/${selectedCitySlug}/${areaSlug}`);
     }

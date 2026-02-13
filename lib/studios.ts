@@ -1,5 +1,6 @@
+import type { Tables } from "@/lib/database.types";
 import { supabase } from "@/lib/supabase";
-import type { Area, City, DbArea, Studio } from "@/lib/types";
+import type { DbArea, Studio } from "@/lib/types";
 import { toStudio } from "@/lib/types";
 
 /** 全スタジオを取得（エリア名を結合） */
@@ -87,7 +88,7 @@ export async function getAllAreaSlugs(): Promise<string[]> {
 }
 
 /** スタジオが存在する市区のみ取得 */
-export async function getAllCities(): Promise<City[]> {
+export async function getAllCities(): Promise<Tables<"cities">[]> {
   // スタジオが存在するエリアのarea_idを取得
   const { data: studioData, error: studioError } = await supabase
     .from("studios")
@@ -124,14 +125,11 @@ export async function getAllCities(): Promise<City[]> {
     throw new Error(`市区の取得に失敗しました: ${error.message}`);
   }
 
-  return (data ?? []).map((row) => {
-    const r = row;
-    return { id: r.id, slug: r.slug, name: r.name };
-  });
+  return data ?? [];
 }
 
 /** スタジオが存在するエリアのみ取得（市区スラッグ付き） */
-export async function getAllAreas(): Promise<Area[]> {
+export async function getAllAreas(): Promise<Tables<"areas">[]> {
   // スタジオが存在するarea_idを取得
   const { data: studioData, error: studioError } = await supabase
     .from("studios")
@@ -155,18 +153,7 @@ export async function getAllAreas(): Promise<Area[]> {
     throw new Error(`エリアの取得に失敗しました: ${error.message}`);
   }
 
-  return (data ?? []).map((row) => {
-    const citySlug = row.cities.slug;
-    const { cities: _, ...areaRow } = row;
-    const r = areaRow;
-    return {
-      id: r.id,
-      slug: r.slug,
-      name: r.name,
-      cityId: r.city_id,
-      citySlug,
-    };
-  });
+  return data ?? [];
 }
 
 /** 市区スラッグ + エリアスラッグでエリアを取得 */
