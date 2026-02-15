@@ -33,7 +33,7 @@ export function AreaNavigator({ cities, areas }: AreaNavigatorProps) {
   function handleAreaChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const areaSlug = event.target.value;
     if (areaSlug && selectedCitySlug) {
-      router.push(`/studio/area/${selectedCitySlug}/${areaSlug}`);
+      router.push(`/area/${selectedCitySlug}/${areaSlug}`);
     }
   }
 
