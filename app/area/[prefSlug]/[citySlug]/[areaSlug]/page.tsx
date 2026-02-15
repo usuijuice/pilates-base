@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -13,6 +14,29 @@ export async function generateStaticParams() {
     citySlug,
     areaSlug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ prefSlug: string; citySlug: string; areaSlug: string }>;
+}): Promise<Metadata> {
+  const { prefSlug, citySlug, areaSlug } = await params;
+  const area = await getAreaBySlugs(prefSlug, citySlug, areaSlug);
+
+  if (!area) {
+    return {
+      title: "エリアが見つかりません | Pilates Base",
+      description: "お探しのエリアが見つかりませんでした。",
+    };
+  }
+
+  const studios = await getStudiosByAreaSlug(areaSlug);
+
+  return {
+    title: `${area.name}のピラティススタジオ | Pilates Base`,
+    description: `${area.municipalityName} ${area.name}エリアのピラティススタジオ一覧（${studios.length}件）。全国のピラティス教室・スタジオ情報を検索できます。`,
+  };
 }
 
 export default async function CityAreaPage({
