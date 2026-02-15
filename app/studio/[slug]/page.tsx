@@ -1,21 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllStudios, getStudioById } from "@/lib/studios";
+import { getAllStudios, getStudioBySlug } from "@/lib/studios";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
   const studios = await getAllStudios();
   return studios.map((studio) => ({
-    id: studio.id.toString(),
+    slug: studio.slug,
   }));
 }
 
 export default async function StudioPage({ params }: PageProps) {
-  const { id } = await params;
-  const studio = await getStudioById(Number.parseInt(id, 10));
+  const { slug } = await params;
+  const studio = await getStudioBySlug(slug);
 
   if (!studio) {
     notFound();

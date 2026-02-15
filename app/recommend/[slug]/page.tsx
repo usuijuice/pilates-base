@@ -73,7 +73,7 @@ export default async function AreaPage({ params }: PageProps) {
         </p>
 
         {areaStudios.map((studio, index) => (
-          <div key={studio.id} className="my-10 p-8 bg-rose-50 rounded-lg">
+          <div key={studio.slug} className="my-10 p-8 bg-rose-50 rounded-lg">
             <h3 className="text-rose-300 text-xl mt-0 mb-4">
               {index + 1}位：{studio.name}
             </h3>

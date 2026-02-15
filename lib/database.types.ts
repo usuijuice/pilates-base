@@ -16,57 +16,83 @@ export type Database = {
     Tables: {
       areas: {
         Row: {
-          city_id: number;
           created_at: string;
-          id: number;
+          municipality_slug: string;
           name: string;
           slug: string;
           updated_at: string;
         };
         Insert: {
-          city_id: number;
           created_at?: string;
-          id?: never;
+          municipality_slug: string;
           name: string;
           slug: string;
           updated_at?: string;
         };
         Update: {
-          city_id?: number;
           created_at?: string;
-          id?: never;
+          municipality_slug?: string;
           name?: string;
           slug?: string;
           updated_at?: string;
         };
         Relationships: [
           {
-            foreignKeyName: "areas_city_id_fkey";
-            columns: ["city_id"];
+            foreignKeyName: "areas_municipality_slug_fkey";
+            columns: ["municipality_slug"];
             isOneToOne: false;
-            referencedRelation: "cities";
-            referencedColumns: ["id"];
+            referencedRelation: "municipalities";
+            referencedColumns: ["slug"];
           },
         ];
       };
-      cities: {
+      municipalities: {
         Row: {
           created_at: string;
-          id: number;
+          name: string;
+          prefecture_slug: string;
+          slug: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          name: string;
+          prefecture_slug: string;
+          slug: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          name?: string;
+          prefecture_slug?: string;
+          slug?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "municipalities_prefecture_slug_fkey";
+            columns: ["prefecture_slug"];
+            isOneToOne: false;
+            referencedRelation: "prefectures";
+            referencedColumns: ["slug"];
+          },
+        ];
+      };
+      prefectures: {
+        Row: {
+          created_at: string;
           name: string;
           slug: string;
           updated_at: string;
         };
         Insert: {
           created_at?: string;
-          id?: never;
           name: string;
           slug: string;
           updated_at?: string;
         };
         Update: {
           created_at?: string;
-          id?: never;
           name?: string;
           slug?: string;
           updated_at?: string;
@@ -77,7 +103,7 @@ export type Database = {
         Row: {
           address: string;
           allows_male: boolean;
-          area_id: number;
+          area_slug: string;
           business_hours: string;
           created_at: string;
           description: string;
@@ -88,18 +114,18 @@ export type Database = {
           has_shower: boolean;
           has_trial_lesson: boolean;
           has_unlimited_plan: boolean;
-          id: number;
           name: string;
           nearest_station: string;
           official_website: string;
           phone: string;
           pricing_plan: string;
+          slug: string;
           updated_at: string;
         };
         Insert: {
           address: string;
           allows_male?: boolean;
-          area_id: number;
+          area_slug: string;
           business_hours?: string;
           created_at?: string;
           description?: string;
@@ -110,18 +136,18 @@ export type Database = {
           has_shower?: boolean;
           has_trial_lesson?: boolean;
           has_unlimited_plan?: boolean;
-          id?: never;
           name: string;
           nearest_station: string;
           official_website?: string;
           phone?: string;
           pricing_plan?: string;
+          slug: string;
           updated_at?: string;
         };
         Update: {
           address?: string;
           allows_male?: boolean;
-          area_id?: number;
+          area_slug?: string;
           business_hours?: string;
           created_at?: string;
           description?: string;
@@ -132,21 +158,21 @@ export type Database = {
           has_shower?: boolean;
           has_trial_lesson?: boolean;
           has_unlimited_plan?: boolean;
-          id?: never;
           name?: string;
           nearest_station?: string;
           official_website?: string;
           phone?: string;
           pricing_plan?: string;
+          slug?: string;
           updated_at?: string;
         };
         Relationships: [
           {
-            foreignKeyName: "studios_area_id_fkey";
-            columns: ["area_id"];
+            foreignKeyName: "studios_area_slug_fkey";
+            columns: ["area_slug"];
             isOneToOne: false;
             referencedRelation: "areas";
-            referencedColumns: ["id"];
+            referencedColumns: ["slug"];
           },
         ];
       };

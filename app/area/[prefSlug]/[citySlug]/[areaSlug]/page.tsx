@@ -1,23 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  getAllCityAreaSlugs,
+  getAllPrefCityAreaSlugs,
   getAreaBySlugs,
   getStudiosByAreaSlug,
 } from "@/lib/studios";
 
 export async function generateStaticParams() {
-  const slugs = await getAllCityAreaSlugs();
-  return slugs.map(({ citySlug, areaSlug }) => ({ citySlug, areaSlug }));
+  const slugs = await getAllPrefCityAreaSlugs();
+  return slugs.map(({ prefSlug, citySlug, areaSlug }) => ({
+    prefSlug,
+    citySlug,
+    areaSlug,
+  }));
 }
 
 export default async function CityAreaPage({
   params,
 }: {
-  params: Promise<{ citySlug: string; areaSlug: string }>;
+  params: Promise<{ prefSlug: string; citySlug: string; areaSlug: string }>;
 }) {
-  const { citySlug, areaSlug } = await params;
-  const area = await getAreaBySlugs(citySlug, areaSlug);
+  const { prefSlug, citySlug, areaSlug } = await params;
+  const area = await getAreaBySlugs(prefSlug, citySlug, areaSlug);
 
   if (!area) {
     notFound();
@@ -35,7 +39,9 @@ export default async function CityAreaPage({
               トップ
             </Link>
             <span className="mx-2">›</span>
-            <span className="text-stone-600">{area.cityName}</span>
+            <span className="text-stone-600">{area.prefectureName}</span>
+            <span className="mx-2">›</span>
+            <span className="text-stone-600">{area.municipalityName}</span>
             <span className="mx-2">›</span>
             <span className="font-medium text-stone-700">{area.name}</span>
           </nav>
@@ -43,7 +49,7 @@ export default async function CityAreaPage({
             {area.name}のピラティススタジオ
           </h1>
           <p className="mt-2 text-sm text-gray-600">
-            {area.cityName} {area.name}エリアのピラティススタジオ一覧（
+            {area.municipalityName} {area.name}エリアのピラティススタジオ一覧（
             {studios.length}件）
           </p>
         </div>
@@ -60,8 +66,8 @@ export default async function CityAreaPage({
           <div className="flex flex-col gap-6">
             {studios.map((studio) => (
               <Link
-                key={studio.id}
-                href={`/studio/${studio.id}`}
+                key={studio.slug}
+                href={`/studio/${studio.slug}`}
                 className="block rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 <h2 className="text-xl font-semibold text-rose-400">

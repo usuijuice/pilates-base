@@ -1,59 +1,64 @@
--- シードデータ: cities, areas, studios
+-- シードデータ: prefectures, municipalities, areas, studios
 
--- 市区データ
-INSERT INTO cities (slug, name) VALUES
-  ('chiyoda', '千代田区'),
-  ('chuo', '中央区'),
-  ('shinjuku', '新宿区'),
-  ('bunkyo', '文京区'),
-  ('taito', '台東区'),
-  ('sumida', '墨田区'),
-  ('koto', '江東区'),
-  ('shinagawa', '品川区'),
-  ('meguro', '目黒区'),
-  ('ota', '大田区'),
-  ('setagaya', '世田谷区'),
-  ('shibuya', '渋谷区'),
-  ('nakano', '中野区'),
-  ('suginami', '杉並区'),
-  ('toshima', '豊島区'),
-  ('kita', '北区'),
-  ('arakawa', '荒川区'),
-  ('itabashi', '板橋区'),
-  ('nerima', '練馬区'),
-  ('adachi', '足立区'),
-  ('katsushika', '葛飾区'),
-  ('edogawa', '江戸川区'),
-  ('hachioji', '八王子市'),
-  ('tachikawa', '立川市'),
-  ('musashino', '武蔵野市'),
-  ('mitaka', '三鷹市'),
-  ('akishima', '昭島市'),
-  ('machida', '町田市'),
-  ('koganei', '小金井市'),
-  ('kodaira', '小平市'),
-  ('kokubunji', '国分寺市'),
-  ('komae', '狛江市'),
-  ('kiyose', '清瀬市'),
-  ('higashikurume', '東久留米市'),
-  ('hamura', '羽村市'),
-  ('nishitokyo', '西東京市');
+-- 都道府県データ
+INSERT INTO prefectures (slug, name) VALUES
+  ('tokyo', '東京都');
+
+-- 市区町村データ
+INSERT INTO municipalities (slug, name, prefecture_slug) VALUES
+  ('chiyoda', '千代田区', 'tokyo'),
+  ('chuo', '中央区', 'tokyo'),
+  ('shinjuku', '新宿区', 'tokyo'),
+  ('bunkyo', '文京区', 'tokyo'),
+  ('taito', '台東区', 'tokyo'),
+  ('sumida', '墨田区', 'tokyo'),
+  ('koto', '江東区', 'tokyo'),
+  ('shinagawa', '品川区', 'tokyo'),
+  ('meguro', '目黒区', 'tokyo'),
+  ('ota', '大田区', 'tokyo'),
+  ('setagaya', '世田谷区', 'tokyo'),
+  ('shibuya', '渋谷区', 'tokyo'),
+  ('nakano', '中野区', 'tokyo'),
+  ('suginami', '杉並区', 'tokyo'),
+  ('toshima', '豊島区', 'tokyo'),
+  ('kita', '北区', 'tokyo'),
+  ('arakawa', '荒川区', 'tokyo'),
+  ('itabashi', '板橋区', 'tokyo'),
+  ('nerima', '練馬区', 'tokyo'),
+  ('adachi', '足立区', 'tokyo'),
+  ('katsushika', '葛飾区', 'tokyo'),
+  ('edogawa', '江戸川区', 'tokyo'),
+  ('hachioji', '八王子市', 'tokyo'),
+  ('tachikawa', '立川市', 'tokyo'),
+  ('musashino', '武蔵野市', 'tokyo'),
+  ('mitaka', '三鷹市', 'tokyo'),
+  ('akishima', '昭島市', 'tokyo'),
+  ('machida', '町田市', 'tokyo'),
+  ('koganei', '小金井市', 'tokyo'),
+  ('kodaira', '小平市', 'tokyo'),
+  ('kokubunji', '国分寺市', 'tokyo'),
+  ('komae', '狛江市', 'tokyo'),
+  ('kiyose', '清瀬市', 'tokyo'),
+  ('higashikurume', '東久留米市', 'tokyo'),
+  ('hamura', '羽村市', 'tokyo'),
+  ('nishitokyo', '西東京市', 'tokyo');
 
 -- エリアデータ
-INSERT INTO areas (slug, name, city_id) VALUES
-  ('sasazuka', '笹塚', (SELECT id FROM cities WHERE slug = 'shibuya'));
+INSERT INTO areas (slug, name, municipality_slug) VALUES
+  ('sasazuka', '笹塚', 'shibuya');
 
 -- スタジオデータ
 INSERT INTO studios (
-  name, address, area_id, nearest_station, phone, description,
+  slug, name, area_slug, address, nearest_station, phone, description,
   pricing_plan, has_trial_lesson, has_unlimited_plan, has_machine,
   has_online_support, has_locker, has_shower, allows_male,
   features, business_hours, official_website
 ) VALUES
 (
+  'club-pilates-sasazuka',
   'クラブピラティス 笹塚店',
+  'sasazuka',
   '〒151-0073 東京都渋谷区笹塚1-48-14 笹塚ショッピングモールTwenty One 2階',
-  (SELECT id FROM areas WHERE slug = 'sasazuka'),
   '京王線笹塚駅より徒歩1分',
   '03-4400-0944',
   'リフォーマー等のマシンピラティス専門スタジオ。体験当日入会で入会金無料。',
@@ -64,9 +69,10 @@ INSERT INTO studios (
   'https://clubpilates.co.jp/studio/sasazuka/'
 ),
 (
+  'pilates-mirror-sasazuka',
   'ピラティスミラー 笹塚',
+  'sasazuka',
   '〒151-0073 東京都渋谷区笹塚1-59-6 メティス笹塚ビル1F',
-  (SELECT id FROM areas WHERE slug = 'sasazuka'),
   '京王線・京王新線 笹塚駅',
   '',
   'KONAMI運営のピラティススタジオ。リフォーマーを使用したレッスンを提供。',
@@ -77,9 +83,10 @@ INSERT INTO studios (
   'https://www.konami.com/sportsclub/pilatesmirror/sasazuka/'
 ),
 (
+  'mind-and-body-sasazuka',
   'PILATES STUDIO Mind & Body',
+  'sasazuka',
   '〒151-0073 東京都渋谷区笹塚2-7-10 浜中ビル7F',
-  (SELECT id FROM areas WHERE slug = 'sasazuka'),
   '京王線/京王新線 笹塚駅から徒歩3分',
   '03-6300-0752',
   'マシンピラティス対応のスタジオ。プライベート、セミプライベート、グループレッスンを提供。',
@@ -90,9 +97,10 @@ INSERT INTO studios (
   'https://mind-and-body.jp/'
 ),
 (
+  'yuzu-sasazuka',
   'パーソナルマシンピラティスYUZU 笹塚店',
+  'sasazuka',
   '〒151-0073 東京都渋谷区笹塚1丁目56-6 90C（9階）',
-  (SELECT id FROM areas WHERE slug = 'sasazuka'),
   '笹塚駅徒歩3分',
   '',
   'リフォーマー、キャデラック、チェア、バレル完備のパーソナルマシンピラティススタジオ。',
@@ -103,9 +111,10 @@ INSERT INTO studios (
   'https://yuzu-pilates.com/studios/sasazuka/'
 ),
 (
+  'element-sasazuka',
   'パーソナルマシンピラティス＆ジム ELEMENT 笹塚A1店',
+  'sasazuka',
   '〒151-0073 東京都渋谷区笹塚1-50-1 Daiwa笹塚タワー スポーツクラブA-1笹塚',
-  (SELECT id FROM areas WHERE slug = 'sasazuka'),
   '笹塚駅から徒歩6分',
   '',
   'マシンピラティス専門のパーソナルジム。30分レッスンで通いやすい。',

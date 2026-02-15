@@ -5,35 +5,55 @@ import { useMemo, useState } from "react";
 import type { Tables } from "@/lib/database.types";
 
 interface AreaNavigatorProps {
-  cities: Tables<"cities">[];
+  prefectures: Tables<"prefectures">[];
+  municipalities: Tables<"municipalities">[];
   areas: Tables<"areas">[];
 }
 
-export function AreaNavigator({ cities, areas }: AreaNavigatorProps) {
+export function AreaNavigator({
+  prefectures,
+  municipalities,
+  areas,
+}: AreaNavigatorProps) {
   const router = useRouter();
-  const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
+  const [selectedPrefSlug, setSelectedPrefSlug] = useState<string | null>(null);
+  const [selectedMunicipalitySlug, setSelectedMunicipalitySlug] = useState<
+    string | null
+  >(null);
 
-  /** 選択された市区に属するエリアのみ */
+  /** 選択された都道府県に属する市区町村のみ */
+  const filteredMunicipalities = useMemo(() => {
+    if (selectedPrefSlug === null) return [];
+    return municipalities.filter((m) => m.prefecture_slug === selectedPrefSlug);
+  }, [municipalities, selectedPrefSlug]);
+
+  /** 選択された市区町村に属するエリアのみ */
   const filteredAreas = useMemo(() => {
-    if (selectedCityId === null) return [];
-    return areas.filter((area) => area.city_id === selectedCityId);
-  }, [areas, selectedCityId]);
+    if (selectedMunicipalitySlug === null) return [];
+    return areas.filter(
+      (area) => area.municipality_slug === selectedMunicipalitySlug,
+    );
+  }, [areas, selectedMunicipalitySlug]);
 
-  /** 選択中の市区のスラッグ */
-  const selectedCitySlug = useMemo(() => {
-    if (selectedCityId === null) return "";
-    return cities.find((city) => city.id === selectedCityId)?.slug ?? "";
-  }, [cities, selectedCityId]);
-
-  function handleCityChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  function handlePrefChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = event.target.value;
-    setSelectedCityId(value ? Number(value) : null);
+    setSelectedPrefSlug(value || null);
+    setSelectedMunicipalitySlug(null);
+  }
+
+  function handleMunicipalityChange(
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) {
+    const value = event.target.value;
+    setSelectedMunicipalitySlug(value || null);
   }
 
   function handleAreaChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const areaSlug = event.target.value;
-    if (areaSlug && selectedCitySlug) {
-      router.push(`/area/${selectedCitySlug}/${areaSlug}`);
+    if (areaSlug && selectedPrefSlug && selectedMunicipalitySlug) {
+      router.push(
+        `/area/${selectedPrefSlug}/${selectedMunicipalitySlug}/${areaSlug}`,
+      );
     }
   }
 
@@ -43,24 +63,56 @@ export function AreaNavigator({ cities, areas }: AreaNavigatorProps) {
         エリアからスタジオを探す
       </h2>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-        {/* 市区ドロップダウン */}
+        {/* 都道府県ドロップダウン */}
         <div className="flex-1">
           <label
-            htmlFor="city-select"
+            htmlFor="pref-select"
             className="mb-1 block text-sm font-medium text-stone-600"
           >
-            市区
+            都道府県
           </label>
           <select
-            id="city-select"
-            value={selectedCityId ?? ""}
-            onChange={handleCityChange}
+            id="pref-select"
+            value={selectedPrefSlug ?? ""}
+            onChange={handlePrefChange}
             className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-700 shadow-sm transition-colors focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200"
           >
-            <option value="">市区を選択してください</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.id}>
-                {city.name}
+            <option value="">都道府県を選択してください</option>
+            {prefectures.map((pref) => (
+              <option key={pref.slug} value={pref.slug}>
+                {pref.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* 市区町村ドロップダウン */}
+        <div className="flex-1">
+          <label
+            htmlFor="municipality-select"
+            className="mb-1 block text-sm font-medium text-stone-600"
+          >
+            市区町村
+          </label>
+          <select
+            id="municipality-select"
+            value={selectedMunicipalitySlug ?? ""}
+            onChange={handleMunicipalityChange}
+            disabled={
+              selectedPrefSlug === null || filteredMunicipalities.length === 0
+            }
+            className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-700 shadow-sm transition-colors focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200 disabled:cursor-not-allowed disabled:bg-stone-100 disabled:text-stone-400"
+          >
+            <option value="">
+              {selectedPrefSlug === null
+                ? "都道府県を先に選択してください"
+                : filteredMunicipalities.length === 0
+                  ? "市区町村がありません"
+                  : "市区町村を選択してください"}
+            </option>
+            {filteredMunicipalities.map((m) => (
+              <option key={m.slug} value={m.slug}>
+                {m.name}
               </option>
             ))}
           </select>
@@ -78,18 +130,20 @@ export function AreaNavigator({ cities, areas }: AreaNavigatorProps) {
             id="area-select"
             value=""
             onChange={handleAreaChange}
-            disabled={selectedCityId === null || filteredAreas.length === 0}
+            disabled={
+              selectedMunicipalitySlug === null || filteredAreas.length === 0
+            }
             className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-700 shadow-sm transition-colors focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200 disabled:cursor-not-allowed disabled:bg-stone-100 disabled:text-stone-400"
           >
             <option value="">
-              {selectedCityId === null
-                ? "市区を先に選択してください"
+              {selectedMunicipalitySlug === null
+                ? "市区町村を先に選択してください"
                 : filteredAreas.length === 0
                   ? "エリアがありません"
                   : "エリアを選択してください"}
             </option>
             {filteredAreas.map((area) => (
-              <option key={area.id} value={area.slug}>
+              <option key={area.slug} value={area.slug}>
                 {area.name}
               </option>
             ))}

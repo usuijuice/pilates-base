@@ -1,13 +1,20 @@
 import Link from "next/link";
 import { AreaNavigator } from "@/components/area-navigator";
-import { getAllAreas, getAllCities, getAllStudios } from "@/lib/studios";
+import {
+  getAllAreas,
+  getAllMunicipalities,
+  getAllPrefectures,
+  getAllStudios,
+} from "@/lib/studios";
 
 export default async function Home() {
-  const [pilatesStudios, cities, areas] = await Promise.all([
-    getAllStudios(),
-    getAllCities(),
-    getAllAreas(),
-  ]);
+  const [pilatesStudios, prefectures, municipalities, areas] =
+    await Promise.all([
+      getAllStudios(),
+      getAllPrefectures(),
+      getAllMunicipalities(),
+      getAllAreas(),
+    ]);
   return (
     <div className="min-h-screen bg-stone-50">
       <header className="sticky top-0 z-10 bg-white shadow-sm">
@@ -23,14 +30,18 @@ export default async function Home() {
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* エリアナビゲーション */}
-        <AreaNavigator cities={cities} areas={areas} />
+        <AreaNavigator
+          prefectures={prefectures}
+          municipalities={municipalities}
+          areas={areas}
+        />
 
         {/* スタジオ一覧 */}
         <div className="mt-8 flex flex-col gap-6">
           {pilatesStudios.map((studio) => (
             <Link
-              key={studio.id}
-              href={`/studio/${studio.id}`}
+              key={studio.slug}
+              href={`/studio/${studio.slug}`}
               className="block rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
               <h2 className="text-xl font-semibold text-rose-400">
