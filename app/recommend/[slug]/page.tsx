@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -13,6 +14,27 @@ interface PageProps {
 export async function generateStaticParams() {
   const slugs = await getAllAreaSlugs();
   return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const area = await getAreaBySlug(slug);
+
+  if (!area) {
+    return {
+      title: "エリアが見つかりません | Pilates Base",
+      description: "お探しのエリアが見つかりませんでした。",
+    };
+  }
+
+  const areaStudios = await getStudiosByAreaSlug(slug);
+
+  return {
+    title: `${area.name}のピラティススタジオおすすめランキング | Pilates Base`,
+    description: `${area.name}でおすすめのピラティススタジオ${areaStudios.length}選。料金、通いやすさ、レッスン形式などを詳しく解説。体験レッスン情報も掲載。`,
+  };
 }
 
 export default async function AreaPage({ params }: PageProps) {

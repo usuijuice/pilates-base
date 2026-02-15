@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllStudios, getStudioBySlug } from "@/lib/studios";
@@ -11,6 +12,25 @@ export async function generateStaticParams() {
   return studios.map((studio) => ({
     slug: studio.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const studio = await getStudioBySlug(slug);
+
+  if (!studio) {
+    return {
+      title: "スタジオが見つかりません | Pilates Base",
+      description: "お探しのスタジオが見つかりませんでした。",
+    };
+  }
+
+  return {
+    title: `${studio.name} | Pilates Base`,
+    description: `${studio.name}の詳細情報。${studio.address}。${studio.description}`,
+  };
 }
 
 export default async function StudioPage({ params }: PageProps) {
