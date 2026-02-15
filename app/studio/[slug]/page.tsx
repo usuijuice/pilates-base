@@ -186,7 +186,7 @@ export default async function StudioPage({ params }: PageProps) {
                   href={studio.official_website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-rose-300 hover:text-rose-400 transition-colors mt-1 inline-block"
+                  className="text-rose-300 hover:text-rose-400 transition-colors mt-1 inline-block break-all"
                 >
                   {studio.official_website}
                 </a>
