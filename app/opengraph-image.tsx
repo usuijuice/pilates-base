@@ -1,6 +1,5 @@
 import { readFile } from "node:fs/promises";
-import path from "node:path";
-import Image from "next/image";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Pilates Base";
@@ -8,17 +7,18 @@ export const size = {
   width: 1200,
   height: 630,
 };
-export const contentType = "image/png";
-export const runtime = "nodejs";
 
-export default async function OpenGraphImage() {
-  const svgPath = path.join(process.cwd(), "public", "pilates.svg");
-  const svg = await readFile(svgPath, "utf-8");
-  const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+export const contentType = "image/png";
+
+export default async function Image() {
+  const notoSansJP = await readFile(
+    join(process.cwd(), "assets/NotoSansJP-Regular.ttf"),
+  );
 
   return new ImageResponse(
     <div
       style={{
+        fontSize: 128,
         background: "#fef2f2",
         width: "100%",
         height: "100%",
@@ -27,10 +27,18 @@ export default async function OpenGraphImage() {
         justifyContent: "center",
       }}
     >
-      <Image src={svgDataUrl} alt="Pilates Base" width={320} height={320} />
+      Pilates Base
     </div>,
     {
       ...size,
+      fonts: [
+        {
+          name: "Noto Sans JP",
+          data: notoSansJP,
+          style: "normal",
+          weight: 400,
+        },
+      ],
     },
   );
 }
