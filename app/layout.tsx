@@ -10,7 +10,20 @@ const notoSansJP = Noto_Sans_JP({
   weight: ["400", "500", "600", "700"],
 });
 
+function getMetadataBase() {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const candidate =
+    envUrl && envUrl.length > 0 ? envUrl : "http://localhost:3000";
+
+  try {
+    return new URL(candidate);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
+
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: "全国のピラティス教室 | Pilates Base",
   description: "全国のピラティス教室・スタジオ情報を検索できるサイトです。",
 };
