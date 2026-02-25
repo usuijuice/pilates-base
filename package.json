@@ -9,8 +9,7 @@
     "lint": "biome check",
     "format": "biome check --write",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "coverage": "vitest run --coverage"
+    "test": "vitest run"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
