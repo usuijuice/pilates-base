@@ -45,15 +45,21 @@ export async function getStudioBySlug(slug: string) {
 }
 
 /** エリアのスラッグでスタジオ一覧を取得 */
-export async function getStudiosByAreaSlug(slug: string) {
+export async function getStudiosByAreaSlug(slug: string, limit?: number) {
   "use cache";
   cacheLife("max");
 
-  const { data, error } = await supabase
+  let query = supabase
     .from("studios")
     .select("*")
     .eq("area_slug", slug)
     .order("name");
+
+  if (limit !== undefined) {
+    query = query.limit(limit);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(`スタジオの取得に失敗しました: ${error.message}`);
