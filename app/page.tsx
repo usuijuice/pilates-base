@@ -10,7 +10,7 @@ import {
 export default async function Home() {
   const [pilatesStudios, prefectures, municipalities, areas] =
     await Promise.all([
-      getAllStudios(),
+      getAllStudios(5),
       getAllPrefectures(),
       getAllMunicipalities(),
       getAllAreas(),

@@ -3,13 +3,17 @@ import type { Tables } from "@/lib/database.types";
 import { supabase } from "@/lib/supabase";
 
 /** 全スタジオを取得（エリア名を結合） */
-export async function getAllStudios() {
+export async function getAllStudios(limit?: number) {
   "use cache";
   cacheLife("max");
-  const { data, error } = await supabase
+  let query = supabase
     .from("studios")
     .select("*, areas(name)")
     .order("name");
+  if (limit !== undefined) {
+    query = query.limit(limit);
+  }
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(`スタジオの取得に失敗しました: ${error.message}`);
