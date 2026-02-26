@@ -11,6 +11,8 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+const MAX_STUDIOS_LIMIT = 5;
+
 export async function generateStaticParams() {
   const slugs = await getAllAreaSlugs();
   return slugs.map((slug) => ({ slug }));
@@ -29,7 +31,7 @@ export async function generateMetadata({
     };
   }
 
-  const areaStudios = await getStudiosByAreaSlug(slug);
+  const areaStudios = await getStudiosByAreaSlug(slug, MAX_STUDIOS_LIMIT);
 
   return {
     title: `${area.name}のピラティススタジオおすすめランキング | Pilates Base`,
@@ -45,7 +47,7 @@ export default async function AreaPage({ params }: PageProps) {
     notFound();
   }
 
-  const areaStudios = await getStudiosByAreaSlug(slug);
+  const areaStudios = await getStudiosByAreaSlug(slug, MAX_STUDIOS_LIMIT);
   const areaName = area.name;
 
   return (
