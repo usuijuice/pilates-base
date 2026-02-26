@@ -7,6 +7,8 @@ import {
   getStudiosByAreaSlug,
 } from "@/lib/studios";
 
+const MAX_STUDIOS = 5;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -29,7 +31,7 @@ export async function generateMetadata({
     };
   }
 
-  const areaStudios = await getStudiosByAreaSlug(slug);
+  const areaStudios = (await getStudiosByAreaSlug(slug)).slice(0, MAX_STUDIOS);
 
   return {
     title: `${area.name}のピラティススタジオおすすめランキング | Pilates Base`,
@@ -45,7 +47,7 @@ export default async function AreaPage({ params }: PageProps) {
     notFound();
   }
 
-  const areaStudios = await getStudiosByAreaSlug(slug);
+  const areaStudios = (await getStudiosByAreaSlug(slug)).slice(0, MAX_STUDIOS);
   const areaName = area.name;
 
   return (
