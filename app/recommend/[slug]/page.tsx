@@ -34,7 +34,7 @@ export async function generateMetadata({
   const areaStudios = await getStudiosByAreaSlug(slug, MAX_STUDIOS_LIMIT);
 
   return {
-    title: `${area.name}のピラティススタジオおすすめランキング | Pilates Base`,
+    title: `${area.name}のおすすめピラティススタジオ | Pilates Base`,
     description: `${area.name}でおすすめのピラティススタジオ${areaStudios.length}選。料金、通いやすさ、レッスン形式などを詳しく解説。体験レッスン情報も掲載。`,
   };
 }
@@ -54,7 +54,7 @@ export default async function AreaPage({ params }: PageProps) {
     <div className="leading-loose text-gray-500 bg-stone-50 m-0 p-5">
       <div className="max-w-7xl mx-auto bg-white p-10 rounded-lg shadow-sm">
         <h1 className="text-rose-300 text-3xl mt-12 mb-6 pb-3 border-b-2 border-rose-100">
-          {areaName}のピラティススタジオおすすめランキング
+          {areaName}のおすすめピラティススタジオ
         </h1>
         <div className="text-base text-gray-500 bg-rose-50 leading-loose p-6 border-l-4 border-rose-200 mb-10">
           <p>
@@ -78,7 +78,7 @@ export default async function AreaPage({ params }: PageProps) {
         </div>
 
         <h2 className="text-rose-300 text-2xl mt-12 mb-6 pb-3 border-b-2 border-rose-100">
-          {areaName}のピラティスジムおすすめ{areaStudios.length}選
+          {areaName}のピラティススタジオおすすめ{areaStudios.length}選
         </h2>
         <p>
           {areaName}
@@ -99,7 +99,7 @@ export default async function AreaPage({ params }: PageProps) {
         {areaStudios.map((studio, index) => (
           <div key={studio.slug} className="my-10 p-8 bg-rose-50 rounded-lg">
             <h3 className="text-rose-300 text-xl mt-0 mb-4">
-              {index + 1}位：{studio.name}
+              {index + 1}：{studio.name}
             </h3>
             <div className="overflow-x-auto my-6">
               <table className="w-full min-w-96 border-collapse bg-white">
