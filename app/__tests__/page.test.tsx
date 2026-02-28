@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 import Page from "../page";
 
-// Mock data for studios
 const mockStudios = [
   {
     slug: "test-studio-1",
@@ -58,37 +57,40 @@ const mockAreas = [
   },
 ];
 
-// Mock lib/studios functions
-vi.mock("@/lib/studios", () => ({
-  getAllStudios: vi.fn(() => Promise.resolve(mockStudios)),
-  getAllPrefectures: vi.fn(() => Promise.resolve(mockPrefectures)),
-  getAllMunicipalities: vi.fn(() => Promise.resolve(mockMunicipalities)),
-  getAllAreas: vi.fn(() => Promise.resolve(mockAreas)),
-}));
+vi.mock(import("@/lib/studios"), async (importOriginal) => {
+  const mod = await importOriginal();
+  return {
+    ...mod,
+    getAllStudios: vi.fn(() => Promise.resolve(mockStudios)),
+    getAllPrefectures: vi.fn(() => Promise.resolve(mockPrefectures)),
+    getAllMunicipalities: vi.fn(() => Promise.resolve(mockMunicipalities)),
+    getAllAreas: vi.fn(() => Promise.resolve(mockAreas)),
+  };
+});
 
-// Mock AreaNavigator component
-vi.mock("@/components/area-navigator", () => ({
-  AreaNavigator: () => <div data-testid="area-navigator">Area Navigator</div>,
-}));
+vi.mock(import("next/navigation"), async (importOriginal) => {
+  const mod = await importOriginal();
+  return {
+    ...mod,
+    useRouter: () => ({
+      push: vi.fn(),
+      back: vi.fn(),
+      forward: vi.fn(),
+      refresh: vi.fn(),
+      replace: vi.fn(),
+      prefetch: vi.fn(),
+    }),
+  };
+});
 
 test("Page renders with mocked studio data", async () => {
-  // Call async Server Component and get JSX
-  const jsx = await Page();
-  render(jsx);
+  render(await Page());
 
-  // Verify page title is displayed
   expect(
     screen.getByRole("heading", { level: 1, name: "全国のピラティス教室" }),
   ).toBeDefined();
-
-  // Verify studio name is displayed
   expect(screen.getByText("テストスタジオ")).toBeDefined();
-
-  // Verify studio information is displayed
   expect(screen.getByText("03-1234-5678")).toBeDefined();
   expect(screen.getByText("東京都渋谷区道玄坂1-1-1")).toBeDefined();
   expect(screen.getByText("テスト用のスタジオです")).toBeDefined();
-
-  // Verify AreaNavigator is rendered
-  expect(screen.getByTestId("area-navigator")).toBeDefined();
 });

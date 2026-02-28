@@ -36,5 +36,5 @@ jobs:
       - name: TypeScript type check
         run: pnpm typecheck
 
-      - name: Run tests with Vitest
-        run: pnpm test
+      - name: Run tests and collect coverage
+        run: pnpm coverage
