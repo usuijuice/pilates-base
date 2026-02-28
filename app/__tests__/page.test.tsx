@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import Page from "../page";
 
 const mockStudios = [
   {
     slug: "test-studio",
     name: "テストスタジオ",
-    area_slug: "shibuya",
-    address: "東京都渋谷区道玄坂1-1-1",
-    nearest_station: "渋谷駅",
+    area_slug: "sasazuka",
+    address: "東京都渋谷区笹塚1-1-1",
+    nearest_station: "笹塚駅",
     phone: "03-1234-5678",
     description: "テスト用のスタジオです",
     pricing_plan: "月額10,000円",
@@ -24,7 +24,7 @@ const mockStudios = [
     official_website: "https://example.com",
     created_at: "2026-01-01T00:00:00Z",
     updated_at: "2026-01-01T00:00:00Z",
-    area: "渋谷",
+    area: "笹塚",
   },
 ];
 
@@ -70,8 +70,10 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-describe("ホームページ", async () => {
-  render(await Page());
+describe("ホームページ", () => {
+  beforeAll(async () => {
+    render(await Page());
+  });
 
   it("タイトルと説明文を表示する", () => {
     expect(
