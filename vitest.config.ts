@@ -6,10 +6,6 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
-    env: {
-      NEXT_PUBLIC_SUPABASE_URL: "https://example.com",
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: "example-anon-key",
-    },
     coverage: {
       provider: "v8",
       include: ["app/**/*.{ts,tsx}"],

@@ -57,16 +57,12 @@ const mockAreas = [
   },
 ];
 
-vi.mock(import("@/lib/studios"), async (importOriginal) => {
-  const mod = await importOriginal();
-  return {
-    ...mod,
-    getAllStudios: vi.fn(() => Promise.resolve(mockStudios)),
-    getAllPrefectures: vi.fn(() => Promise.resolve(mockPrefectures)),
-    getAllMunicipalities: vi.fn(() => Promise.resolve(mockMunicipalities)),
-    getAllAreas: vi.fn(() => Promise.resolve(mockAreas)),
-  };
-});
+vi.mock("@/lib/studios", () => ({
+  getAllStudios: vi.fn(() => Promise.resolve(mockStudios)),
+  getAllPrefectures: vi.fn(() => Promise.resolve(mockPrefectures)),
+  getAllMunicipalities: vi.fn(() => Promise.resolve(mockMunicipalities)),
+  getAllAreas: vi.fn(() => Promise.resolve(mockAreas)),
+}));
 
 vi.mock(import("next/navigation"), async (importOriginal) => {
   const mod = await importOriginal();
