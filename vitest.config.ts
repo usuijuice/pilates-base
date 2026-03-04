@@ -8,7 +8,7 @@ export default defineConfig({
     environment: "jsdom",
     coverage: {
       provider: "v8",
-      include: ["app/**/*.{ts,tsx}"],
+      include: ["{app,components,lib}/**/*.{ts,tsx}"],
       thresholds: {
         statements: 0,
         branches: 0,
