@@ -211,15 +211,15 @@ describe("エリアナビゲーター", () => {
 
     expect(
       screen.queryByRole("option", { name: "渋谷区", selected: true }),
-    ).toBeDefined();
+    ).not.toBeNull();
 
     fireEvent.change(screen.getByRole("combobox", { name: "都道府県" }), {
       target: { value: "osaka" },
     });
 
     expect(
-      screen.queryByRole("option", { name: "渋谷区", selected: false }),
-    ).toBeDefined();
+      screen.queryByRole("option", { name: "渋谷区", selected: true }),
+    ).toBeNull();
     expect(
       screen.getByRole("combobox", { name: "エリア" }).getAttribute("disabled"),
     ).toBeDefined();
