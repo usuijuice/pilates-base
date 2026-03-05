@@ -30,8 +30,8 @@ const mockStudios = [
 
 const mockPrefectures = [
   {
-    name: "東京都",
     slug: "tokyo",
+    name: "東京都",
     created_at: "2026-01-01T00:00:00Z",
     updated_at: "2026-01-01T00:00:00Z",
   },
@@ -39,8 +39,8 @@ const mockPrefectures = [
 
 const mockMunicipalities = [
   {
-    name: "渋谷区",
     slug: "shibuya",
+    name: "渋谷区",
     prefecture_slug: "tokyo",
     created_at: "2026-01-01T00:00:00Z",
     updated_at: "2026-01-01T00:00:00Z",
@@ -49,8 +49,8 @@ const mockMunicipalities = [
 
 const mockAreas = [
   {
-    name: "笹塚",
     slug: "sasazuka",
+    name: "笹塚",
     municipality_slug: "shibuya",
     created_at: "2026-01-01T00:00:00Z",
     updated_at: "2026-01-01T00:00:00Z",
@@ -85,7 +85,14 @@ describe("ホームページ", () => {
   });
 
   it("スタジオ情報を表示する", () => {
-    expect(screen.getByText(mockStudios[0].name)).toBeDefined();
+    expect(
+      screen.getByRole("link", {
+        name: `${mockStudios[0].name} 住所: ${mockStudios[0].address} 電話: ${mockStudios[0].phone} ${mockStudios[0].description}`,
+      }),
+    ).toBeDefined();
+    expect(
+      screen.getByRole("heading", { level: 2, name: mockStudios[0].name }),
+    ).toBeDefined();
     expect(screen.getByText(mockStudios[0].address)).toBeDefined();
     expect(screen.getByText(mockStudios[0].phone)).toBeDefined();
     expect(screen.getByText(mockStudios[0].description)).toBeDefined();

@@ -6,7 +6,11 @@ describe("フッター", () => {
   render(<Footer />);
 
   it("各項目を表示する", () => {
-    expect(screen.getByText("プライバシーポリシー")).toBeDefined();
+    expect(screen.getByRole("contentinfo")).toBeDefined();
+    expect(screen.getByRole("navigation")).toBeDefined();
+    expect(
+      screen.getByRole("link", { name: "プライバシーポリシー" }),
+    ).toBeDefined();
     expect(screen.getByText("© 2026 Pilates Base")).toBeDefined();
   });
 });
