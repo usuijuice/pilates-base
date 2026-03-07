@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { Tables } from "@/lib/database.types";
 
 interface AreaNavigatorProps {
@@ -16,28 +16,26 @@ export function AreaNavigator({
   areas,
 }: AreaNavigatorProps) {
   const router = useRouter();
-  const [selectedPrefSlug, setSelectedPrefSlug] = useState<string | null>(null);
+  const [selectedPrefectureSlug, setSelectedPrefectureSlug] = useState<
+    string | null
+  >(null);
   const [selectedMunicipalitySlug, setSelectedMunicipalitySlug] = useState<
     string | null
   >(null);
 
   /** 選択された都道府県に属する市区町村のみ */
-  const filteredMunicipalities = useMemo(() => {
-    if (selectedPrefSlug === null) return [];
-    return municipalities.filter((m) => m.prefecture_slug === selectedPrefSlug);
-  }, [municipalities, selectedPrefSlug]);
+  const filteredMunicipalities = municipalities.filter(
+    (municipality) => municipality.prefecture_slug === selectedPrefectureSlug,
+  );
 
   /** 選択された市区町村に属するエリアのみ */
-  const filteredAreas = useMemo(() => {
-    if (selectedMunicipalitySlug === null) return [];
-    return areas.filter(
-      (area) => area.municipality_slug === selectedMunicipalitySlug,
-    );
-  }, [areas, selectedMunicipalitySlug]);
+  const filteredAreas = areas.filter(
+    (area) => area.municipality_slug === selectedMunicipalitySlug,
+  );
 
-  function handlePrefChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  function handlePrefectureChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = event.target.value;
-    setSelectedPrefSlug(value || null);
+    setSelectedPrefectureSlug(value || null);
     setSelectedMunicipalitySlug(null);
   }
 
@@ -50,9 +48,9 @@ export function AreaNavigator({
 
   function handleAreaChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const areaSlug = event.target.value;
-    if (areaSlug && selectedPrefSlug && selectedMunicipalitySlug) {
+    if (areaSlug && selectedPrefectureSlug && selectedMunicipalitySlug) {
       router.push(
-        `/area/${selectedPrefSlug}/${selectedMunicipalitySlug}/${areaSlug}`,
+        `/area/${selectedPrefectureSlug}/${selectedMunicipalitySlug}/${areaSlug}`,
       );
     }
   }
@@ -66,21 +64,21 @@ export function AreaNavigator({
         {/* 都道府県ドロップダウン */}
         <div className="flex-1">
           <label
-            htmlFor="pref-select"
+            htmlFor="prefecture-select"
             className="mb-1 block text-sm font-medium text-stone-600"
           >
             都道府県
           </label>
           <select
-            id="pref-select"
-            value={selectedPrefSlug ?? ""}
-            onChange={handlePrefChange}
+            id="prefecture-select"
+            value={selectedPrefectureSlug ?? ""}
+            onChange={handlePrefectureChange}
             className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-700 shadow-sm transition-colors focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200"
           >
             <option value="">都道府県を選択してください</option>
-            {prefectures.map((pref) => (
-              <option key={pref.slug} value={pref.slug}>
-                {pref.name}
+            {prefectures.map((prefecture) => (
+              <option key={prefecture.slug} value={prefecture.slug}>
+                {prefecture.name}
               </option>
             ))}
           </select>
@@ -99,20 +97,21 @@ export function AreaNavigator({
             value={selectedMunicipalitySlug ?? ""}
             onChange={handleMunicipalityChange}
             disabled={
-              selectedPrefSlug === null || filteredMunicipalities.length === 0
+              selectedPrefectureSlug === null ||
+              filteredMunicipalities.length === 0
             }
             className="w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-700 shadow-sm transition-colors focus:border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-200 disabled:cursor-not-allowed disabled:bg-stone-100 disabled:text-stone-400"
           >
             <option value="">
-              {selectedPrefSlug === null
+              {selectedPrefectureSlug === null
                 ? "都道府県を先に選択してください"
                 : filteredMunicipalities.length === 0
                   ? "市区町村がありません"
                   : "市区町村を選択してください"}
             </option>
-            {filteredMunicipalities.map((m) => (
-              <option key={m.slug} value={m.slug}>
-                {m.name}
+            {filteredMunicipalities.map((municipality) => (
+              <option key={municipality.slug} value={municipality.slug}>
+                {municipality.name}
               </option>
             ))}
           </select>
